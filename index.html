@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gold — Rent A Car</title>
+  <meta name="description" content="Kolay araç kiralama — anında rezervasyon, şeffaf fiyatlar, 7/24 destek." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1020;             /* arka plan */
+      --panel:#0f152b;          /* kart arka planı */
+      --muted:#9aa3b2;          /* açıklama metni */
+      --text:#e8ecf3;           /* ana metin */
+      --brand:#5dd0ff;          /* vurgu */
+      --brand-2:#9bffb2;        /* ikincil vurgu */
+      --danger:#ff6363;         /* uyarı */
+      --ok:#7cf09b;             /* başarı */
+      --ring: 0 0 0 8px rgb(93 208 255 / 0.15);
+      --radius-xl: 22px;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --shadow-lg: 0 20px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.03);
+      --shadow-sm: 0 10px 25px rgba(0,0,0,.25);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,ui-sans-serif; color:var(--text); background:radial-gradient(1200px 600px at 85% -10%, rgba(93,208,255,.22), transparent 60%),
+                radial-gradient(1200px 600px at 10% 10%, rgba(155,255,178,.15), transparent 50%),
+                linear-gradient(180deg,#090e1b 0%, #0b1020 22%, #0b1020 100%);
+      letter-spacing:.2px;
+    }
+
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{max-width:1200px; margin:0 auto; padding:0 20px}
+
+    /* HEADER */
+    header{
+      position:sticky; top:0; z-index:40; backdrop-filter: saturate(1.2) blur(8px);
+      background:linear-gradient(rgba(11,16,32,.75), rgba(11,16,32,.55));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{display:flex; align-items:center; gap:20px; padding:14px 0}
+    .logo{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.6px}
+    .logo-badge{width:34px; height:34px; border-radius:10px; display:grid; place-items:center; background:
+      radial-gradient(120% 100% at 0% 0%, #9bffb2, #5dd0ff);
+      box-shadow: var(--shadow-sm);
+    }
+    .logo svg{filter:drop-shadow(0 6px 16px rgba(93,208,255,.5))}
+    .navlinks{margin-left:auto; display:flex; gap:18px; flex-wrap:wrap}
+    .nav a{opacity:.9}
+    .nav a:hover{opacity:1}
+    .cta{margin-left:6px; padding:10px 14px; background:linear-gradient(90deg, var(--brand), var(--brand-2)); color:#041018; font-weight:700; border-radius:12px; box-shadow:var(--shadow-sm)}
+
+    /* HERO */
+    .hero{position:relative; overflow:hidden}
+    .hero-inner{display:grid; grid-template-columns: 1.15fr .85fr; gap:28px; align-items:center; padding:60px 0 36px}
+    @media (max-width: 980px){ .hero-inner{grid-template-columns:1fr; padding:36px 0} }
+
+    h1{font-size: clamp(28px, 5vw, 56px); line-height:1.05; margin:10px 0 12px; letter-spacing:.2px}
+    .lead{font-size: clamp(15px, 2.2vw, 18px); color:var(--muted)}
+
+    .booking{margin-top:24px; background:linear-gradient(180deg, rgba(255,255,255,.02), transparent 30%), var(--panel);
+      border:1px solid rgba(255,255,255,.06); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg);
+      padding:18px; display:grid; grid-template-columns: repeat(6, 1fr); gap:12px; align-items:end}
+    @media (max-width: 980px){ .booking{grid-template-columns: 1fr 1fr; row-gap:16px} }
+
+    .field label{display:block; font-size:12px; color:var(--muted); margin:0 0 6px 6px}
+    .field input, .field select{
+      width:100%; padding:14px 12px; border-radius:14px; border:1px solid rgba(255,255,255,.08);
+      background:#0b1228; color:var(--text); outline:none; box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+    }
+    .field input:focus, .field select:focus{ box-shadow: var(--ring); border-color: rgba(93,208,255,.65) }
+
+    .btn-primary{ padding:14px 16px; border-radius:14px; font-weight:800; border:none; cursor:pointer;
+      background:linear-gradient(90deg, var(--brand), var(--brand-2)); color:#03121a; box-shadow: var(--shadow-sm);
+    }
+    .badge{display:inline-flex; gap:8px; align-items:center; font-size:12px; padding:8px 10px; border-radius:999px;
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03)); border:1px solid rgba(255,255,255,.08)
+    }
+
+    .hero-car{
+      position:relative; border-radius: var(--radius-xl); overflow:hidden; background:
+        radial-gradient(1200px 600px at 40% 20%, rgba(93,208,255,.18), transparent 60%),
+        radial-gradient(900px 500px at 60% 100%, rgba(155,255,178,.22), transparent 50%),
+        linear-gradient(180deg, #0e1632, #0b1226);
+      border:1px solid rgba(255,255,255,.06); box-shadow: var(--shadow-lg);
+    }
+    .hero-car img{width:100%; height:100%; object-fit:cover; aspect-ratio: 4/3; opacity:.95}
+    .hero-stats{position:absolute; left:16px; bottom:16px; display:flex; gap:10px; flex-wrap:wrap}
+    .chip{padding:8px 10px; font-weight:700; background:#0b1226; border:1px solid rgba(255,255,255,.08); border-radius: 12px}
+
+    /* TRUST */
+    .trust{display:flex; gap:16px; align-items:center; flex-wrap:wrap; margin-top:12px}
+    .trust .tick{width:18px; height:18px; border-radius:50%; background: linear-gradient(180deg, #9bffb2, #5dd0ff); display:grid; place-items:center; color:#041018; font-size:12px; font-weight:900}
+
+    /* SECTIONS */
+    section{padding:44px 0}
+    .section-title{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:16px}
+    .section-title h2{font-size: clamp(22px, 4vw, 34px); margin:0}
+    .section-title p{color:var(--muted); margin:0}
+
+    /* CAR GRID */
+    .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap:16px}
+    .car-card{grid-column: span 4; background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)), var(--panel);
+      border:1px solid rgba(255,255,255,.07); border-radius: var(--radius-lg); overflow:hidden; box-shadow: var(--shadow-sm); display:flex; flex-direction:column}
+    @media (max-width: 980px){ .car-card{grid-column: span 6} }
+    @media (max-width: 640px){ .car-card{grid-column: span 12} }
+    .car-media{position:relative}
+    .car-media img{width:100%; height:220px; object-fit:cover}
+    .car-body{padding:14px}
+    .car-meta{display:flex; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:13px}
+    .car-title{display:flex; align-items:center; justify-content:space-between; gap:12px; margin:8px 0}
+    .price{font-weight:800; font-size:18px; background:linear-gradient(90deg, var(--brand), var(--brand-2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .car-cta{display:flex; gap:10px; margin-top:auto; padding:14px}
+    .btn-outline{flex:1; display:inline-grid; place-items:center; border-radius:12px; padding:12px; border:1px solid rgba(255,255,255,.12)}
+
+    /* BENEFITS */
+    .benefits{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
+    @media (max-width: 980px){ .benefits{grid-template-columns: 1fr} }
+    .benefit{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)), var(--panel); border:1px solid rgba(255,255,255,.07);
+      border-radius: var(--radius-lg); padding:16px; box-shadow: var(--shadow-sm)}
+    .benefit h3{margin:6px 0 8px}
+    .benefit p{margin:0; color:var(--muted)}
+
+    /* REVIEWS */
+    .reviews{display:grid; grid-template-columns: repeat(3, 1fr); gap:16px}
+    @media (max-width: 980px){ .reviews{grid-template-columns: 1fr} }
+    .review{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)), var(--panel); border:1px solid rgba(255,255,255,.07);
+      border-radius: var(--radius-lg); padding:16px; box-shadow: var(--shadow-sm)}
+    .stars{letter-spacing: 2px}
+
+    /* FAQ */
+    .faq{display:grid; grid-template-columns: 1fr 1fr; gap:16px}
+    @media (max-width: 980px){ .faq{grid-template-columns: 1fr} }
+    .qa{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)), var(--panel); border:1px solid rgba(255,255,255,.07);
+      border-radius: var(--radius-lg); padding:16px; box-shadow: var(--shadow-sm)}
+    .qa h4{margin:0 0 6px}
+    .qa p{margin:0; color:var(--muted)}
+
+    /* FOOTER */
+    footer{padding:40px 0 60px; border-top: 1px dashed rgba(255,255,255,.08); background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02))}
+    .fgrid{display:grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap:16px}
+    @media (max-width: 980px){ .fgrid{grid-template-columns: 1fr 1fr} }
+    @media (max-width: 640px){ .fgrid{grid-template-columns: 1fr} }
+    .small{color:var(--muted); font-size:13px}
+
+    /* UTILS */
+    .pill{display:inline-flex; gap:8px; align-items:center; padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.1)}
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0}
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="container nav">
+      <a class="logo" href="#">
+        <span class="logo-badge" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 13h4l3 6h4l3-10h4" stroke="#051319" stroke-width="2"/>
+            <circle cx="8" cy="19" r="2.2" fill="#051319"/>
+            <circle cx="17" cy="19" r="2.2" fill="#051319"/>
+          </svg>
+        </span>
+        Gold Rent a Car
+      </a>
+      <nav class="navlinks" aria-label="Ana gezinme">
+        <a href="#cars">Araçlar</a>
+        <a href="#benefits">Neden Biz?</a>
+        <a href="#reviews">Yorumlar</a>
+        <a href="#faq">SSS</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="booking">
+    <div class="container hero-inner">
+      <div>
+        <span class="badge">🚗 Temiz araçlar • 🌍 Güvenin adressi • ⏱️ Anında teslim</span>
+        <h1>Aracını seç, <span style="background:linear-gradient(90deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent">yola çık</span>.</h1>
+        <p class="lead">Şeffaf fiyatlar, depozitoda sürpriz yok. Tam kapsamlı sigorta ve 7/24 yol yardımı.</p>
+
+       
+        <div class="trust" aria-label="Güven rozetleri">
+          <span class="tick">✓</span><span>Depozitosuz seçenekler</span>
+          <span class="tick">✓</span><span>Tam sigorta</span>
+        </div>
+      </div>
+
+      <aside class="hero-car" aria-label="Öne çıkan araç">
+        <img alt="Gümüş renkli modern sedan" src="resimler/auto-5530289_1280.jpg" />
+        <div class="hero-stats">
+          <span class="chip">Sınırsız km</span>
+          <span class="chip">Anında teslim</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- CARS -->
+  <section id="cars">
+    <div class="container">
+      <div class="section-title">
+        <h2>Popüler Araçlar</h2>
+        <p>Tümü sigortalı, bakımlı ve 2 yaş altı filodan.</p>
+      </div>
+
+      <div class="grid">
+        <!-- Card 1 -->
+        <article class="car-card" aria-label="Ekonomik – Toyota Yaris">
+          <div class="car-media">
+            <img alt="Toyota Yaris" src="resimler/toyota-1596082_640.png    ">
+          </div>
+          <div class="car-body">
+            <div class="car-title">
+              <h3 style="margin:0">Toyota Yaris • Ekonomik</h3>
+              <div class="price">₺1.150 / gün</div>
+            </div>
+            <div class="car-meta">
+              <span>🚘 Otomatik</span><span>⛽ Benzin</span><span>👥 5 Kişilik</span>
+            </div>
+          </div>
+          <div class="car-cta">
+            <a class="btn-outline" href="#booking">İletişime Geçin</a>
+            <a class="btn-primary" style="flex:1; display:grid; place-items:center" href="#booking">Stokta mevcut</a>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="car-card" aria-label="Orta – Volkswagen Golf">
+          <div class="car-media">
+            <img alt="Volkswagen Golf" src="https://images.unsplash.com/photo-1550355291-bbee04a92027?q=80&w=1600&auto=format&fit=crop">
+          </div>
+          <div class="car-body">
+            <div class="car-title">
+              <h3 style="margin:0">Volkswagen Golf • Orta</h3>
+              <div class="price">₺1.550 / gün</div>
+            </div>
+            <div class="car-meta">
+              <span>🚘 Otomatik</span><span>⛽ Dizel</span><span>👥 5 Kişi</span>
+            </div>
+          </div>
+          <div class="car-cta">
+            <a class="btn-outline" href="#booking">İletişime Geçin</a>
+            <a class="btn-primary" style="flex:1; display:grid; place-items:center" href="#booking">Stokta mevcut</a>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="car-card" aria-label="SUV – Hyundai Tucson">
+          <div class="car-media">
+            <img alt="Hyundai Tucson" src="resimler/mitsubishi-1596079_640.png">
+          </div>
+          <div class="car-body">
+            <div class="car-title">
+              <h3 style="margin:0">Hyundai Tucson • SUV</h3>
+              <div class="price">₺2.350 / gün</div>
+            </div>
+            <div class="car-meta">
+              <span>🚘 Otomatik</span><span>⛽ Dizel</span><span>👥 5 Kişi</span>
+            </div>
+          </div>
+          <div class="car-cta">
+            <a class="btn-outline" href="#booking">İletişime Geçin</a>
+            <a class="btn-primary" style="flex:1; display:grid; place-items:center" href="#booking">Stokta mevcut</a>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="car-card" aria-label="Lüks – BMW 5 Serisi">
+          <div class="car-media">
+            <img alt="BMW 5 Serisi" src="resimler/bmw-1596080_640.png">
+          </div>
+          <div class="car-body">
+            <div class="car-title">
+              <h3 style="margin:0">BMW 5 Serisi • Lüks</h3>
+              <div class="price">₺3.900 / gün</div>
+            </div>
+            <div class="car-meta">
+              <span>🚘 Otomatik</span><span>⛽ Benzin</span><span>👥 5 Kişi</span>
+            </div>
+          </div>
+          <div class="car-cta">
+            <a class="btn-outline" href="#booking">İletişime Geçin</a>
+            <a class="btn-primary" style="flex:1; display:grid; place-items:center" href="#booking">Stokta mevcut</a>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="car-card" aria-label="7 Koltuk – Peugeot 5008">
+          <div class="car-media">
+            <img alt="Peugeot 5008" src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=1600&auto=format&fit=crop">
+          </div>
+          <div class="car-body">
+            <div class="car-title">
+              <h3 style="margin:0">Peugeot 5008 • 7 Koltuk</h3>
+              <div class="price">₺2.950 / gün</div>
+            </div>
+            <div class="car-meta">
+              <span>🚘 Otomatik</span><span>⛽ Dizel</span><span>👥 7 Kişi</span>
+            </div>
+          </div>
+          <div class="car-cta">
+            <a class="btn-outline" href="#booking">İletişime Geçin</a>
+            <a class="btn-primary" style="flex:1; display:grid; place-items:center" href="#booking">Stokta mevcut</a>
+          </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="car-card" aria-label="Elektrikli – Tesla Model 3">
+          <div class="car-media">
+            <img alt="Tesla Model 3" src="resimler/honda-1596081_640.png">
+          </div>
+          <div class="car-body">
+            <div class="car-title">
+              <h3 style="margin:0">Tesla Model 3 • Elektrikli</h3>
+              <div class="price">₺4.200 / gün</div>
+            </div>
+            <div class="car-meta">
+              <span>⚡ 450km menzil</span><span>🚘 Otomatik</span><span>👥 5 Kişi</span>
+            </div>
+          </div>
+          <div class="car-cta">
+            <a class="btn-outline" href="#booking">İletişime Geçin</a>
+            <a class="btn-primary" style="flex:1; display:grid; place-items:center" href="#booking">Stokta mevcut</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section id="benefits">
+    <div class="container">
+      <div class="section-title">
+        <h2>Neden Gold Rent a Car?</h2>
+        <p>Hız, şeffaflık ve destek — hepsi tek yerde.</p>
+      </div>
+      <div class="benefits">
+        <div class="benefit">
+          <span class="pill">⚡ Hızlı Rezervasyon</span>
+          <h3>2 dakikada tamamla</h3>
+          <p>Anında onay. Teslimat noktasında sıra yok.</p>
+        </div>
+        <div class="benefit">
+          <span class="pill">🛡️ Tam Kapsam</span>
+          <h3>Şeffaf sigorta</h3>
+          <p>Zorunlu trafik, kasko, hırsızlık ve mini onarım dahil paketler.</p>
+        </div>
+        <div class="benefit">
+          <span class="pill">☎️ 7/24 Destek</span>
+          <h3>Yolda yalnız değilsin</h3>
+          <p>Her şehirde çözüm ortakları ve çekici hizmeti.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews">
+    <div class="container">
+      <div class="section-title">
+        <h2>Müşteri Yorumları</h2>
+        <p>Binlerce yolcunun memnuniyeti.</p>
+      </div>
+      <div class="reviews">
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p style="margin:8px 0 0">“Gece 01:00'de teslim aldım, işlem 5 dakika sürdü. Araç tertemizdi.”</p>
+          <p class="small" style="margin-top:8px">— Zeynep A., Yüksekova</p>
+        </div>
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p style="margin:8px 0 0">“Depozitosuz seçenek harika! Gönül rahatlığıyla aldım.”</p>
+          <p class="small" style="margin-top:8px">— Kadir K., Yüksekova</p>
+        </div>
+        <div class="review">
+          <div class="stars">★★★★☆</div>
+          <p style="margin:8px 0 0">“Uçaktan iner inmez teslim ettiler. Müşteri hizmetleri çok ilgili.”</p>
+          <p class="small" style="margin-top:8px">— Elif D., Yüksekova</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-title">
+        <h2>Sıkça Sorulan Sorular</h2>
+        <p>Rezervasyon öncesi aklınıza takılanlar.</p>
+      </div>
+      <div class="faq">
+        <div class="qa">
+          <h4>Depozito alıyor musunuz?</h4>
+          <p>Birçok araçta depozitosuz seçenek var. Depozito gereken sınıflarda kredi kartından blokaj alınır ve iade süresi bankaya göre değişir.</p>
+        </div>
+        <div class="qa">
+          <h4>Genç sürücü ücreti var mı?</h4>
+          <p>Hayır! Ehliyet yaşını dolduran herkese aynı şeffaflıkla yaklaşıyoruz.</p>
+        </div>
+        <div class="qa">
+          <h4>Kilometre sınırı nedir?</h4>
+          <p>Şehir içi kiralamalarda günlük 400 km, üzeri için düşük km başı ücret uygulanır. Sınırsız km paketimiz mevcuttur.</p>
+        </div>
+        <div class="qa">
+          <h4>Yakıt politikası nasıl?</h4>
+          <p>“Full–Full” standarttır: Depoyu dolu alır, dolu teslim edersiniz. Fark oluşursa yalnızca yakıt farkı yansır.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container fgrid">
+      <div>
+        <div class="logo" style="margin-bottom:10px">
+          <span class="logo-badge" aria-hidden="true"></span>
+          Gold Rent a Car
+        </div>
+        <p class="small">Kolay ve güvenli araç kiralama. Havalimanında teslim, şehir içi teslim, gizli ücret yok.</p>
+        <p class="small" style="margin-top:12px">© <span id="y"></span> Gold Rent a Car Teknoloji AŞ.</p>
+      </div>
+      <div>
+        <h4 style="margin:0 0 8px">Şubemiz</h4>
+        <p class="small">Hakkari/Yüksekova yeşildere mahallesi no5</p>
+      </div>
+      <div>
+        <h4 style="margin:0 0 8px">İletişim</h4>
+        <p class="small">+90 850 000 00 00<br/>destek@Goldrentacar.com</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Sadece yıl güncellemesi ve demo amaçlı alert engelleme dışında JS yok
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
