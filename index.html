@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gold — Rent A Car</title>
+  <title>HalDer — Araç Kiralama</title>
   <meta name="description" content="Kolay araç kiralama — anında rezervasyon, şeffaf fiyatlar, 7/24 destek." />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -143,16 +143,67 @@
     .qa h4{margin:0 0 6px}
     .qa p{margin:0; color:var(--muted)}
 
-    /* FOOTER */
-    footer{padding:40px 0 60px; border-top: 1px dashed rgba(255,255,255,.08); background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02))}
-    .fgrid{display:grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap:16px}
-    @media (max-width: 980px){ .fgrid{grid-template-columns: 1fr 1fr} }
-    @media (max-width: 640px){ .fgrid{grid-template-columns: 1fr} }
-    .small{color:var(--muted); font-size:13px}
+     .footer {
+      padding: 50px 0 30px;
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+      border-top: 1px dashed rgba(255,255,255,.08);
+      text-align: center;
+    }
 
-    /* UTILS */
-    .pill{display:inline-flex; gap:8px; align-items:center; padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.1)}
-    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0}
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-brand .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 10px;
+      justify-content: center;
+    }
+
+    .footer-brand .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .footer-brand p {
+      margin: 6px 0;
+      max-width: 320px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: row;
+      gap: 50px;
+      justify-content: center;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .footer-links h4 {
+      margin-bottom: 6px;
+    }
+
+    /* Mobil uyumluluk */
+    @media (max-width: 768px) {
+      .footer-links {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+  </style>
+
   </style>
 </head>
 <body>
@@ -161,19 +212,20 @@
     <div class="container nav">
       <a class="logo" href="#">
         <span class="logo-badge" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <img src="resimler/logo.jpg" alt="HalDer Araç Kiralama Logosu" style="width:34px; height:34px; border-radius:10px; object-fit:cover;">
             <path d="M3 13h4l3 6h4l3-10h4" stroke="#051319" stroke-width="2"/>
             <circle cx="8" cy="19" r="2.2" fill="#051319"/>
             <circle cx="17" cy="19" r="2.2" fill="#051319"/>
           </svg>
         </span>
-        Gold Rent a Car
+        Hal-Der Araç Kiralama
       </a>
       <nav class="navlinks" aria-label="Ana gezinme">
         <a href="#cars">Araçlar</a>
         <a href="#benefits">Neden Biz?</a>
         <a href="#reviews">Yorumlar</a>
         <a href="#faq">SSS</a>
+        <a href="iletisim.html">İletişim</a>
       </nav>
     </div>
   </header>
@@ -194,10 +246,9 @@
       </div>
 
       <aside class="hero-car" aria-label="Öne çıkan araç">
-        <img alt="Gümüş renkli modern sedan" src="resimler/auto-5530289_1280.jpg" />
+        <img alt="Gümüş renkli modern sedan" src="resimler/anasayfa2.png" />
         <div class="hero-stats">
-          <span class="chip">Sınırsız km</span>
-          <span class="chip">Anında teslim</span>
+        
         </div>
       </aside>
     </div>
@@ -208,14 +259,14 @@
     <div class="container">
       <div class="section-title">
         <h2>Popüler Araçlar</h2>
-        <p>Tümü sigortalı, bakımlı ve 2 yaş altı filodan.</p>
+        <p>Tümü sigortalı ve bakımlı filodan.</p>
       </div>
 
       <div class="grid">
         <!-- Card 1 -->
         <article class="car-card" aria-label="Ekonomik – Toyota Yaris">
           <div class="car-media">
-            <img alt="Toyota Yaris" src="resimler/toyota-1596082_640.png    ">
+            <img alt="Toyota Yaris" src="resimler/toyota.jpg">
           </div>
           <div class="car-body">
             <div class="car-title">
@@ -227,7 +278,7 @@
             </div>
           </div>
           <div class="car-cta">
-            <a class="btn-outline" href="#booking">İletişime Geçin</a>
+            <a class="btn-outline" href="iletisim.html">İletişime Geçin</a>
             <a class="btn-primary" style="flex:1; display:grid; place-items:center" href="#booking">Stokta mevcut</a>
           </div>
         </article>
@@ -235,7 +286,7 @@
         <!-- Card 2 -->
         <article class="car-card" aria-label="Orta – Volkswagen Golf">
           <div class="car-media">
-            <img alt="Volkswagen Golf" src="https://images.unsplash.com/photo-1550355291-bbee04a92027?q=80&w=1600&auto=format&fit=crop">
+            <img alt="Volkswagen Golf" src="resimler/golf.jpg">
           </div>
           <div class="car-body">
             <div class="car-title">
@@ -247,7 +298,7 @@
             </div>
           </div>
           <div class="car-cta">
-            <a class="btn-outline" href="#booking">İletişime Geçin</a>
+            <a class="btn-outline" href="iletisim.html">İletişime Geçin</a>
             <a class="btn-primary" style="flex:1; display:grid; place-items:center" href="#booking">Stokta mevcut</a>
           </div>
         </article>
@@ -255,7 +306,7 @@
         <!-- Card 3 -->
         <article class="car-card" aria-label="SUV – Hyundai Tucson">
           <div class="car-media">
-            <img alt="Hyundai Tucson" src="resimler/mitsubishi-1596079_640.png">
+            <img alt="Hyundai Tucson" src="resimler/hyundai.jpg">
           </div>
           <div class="car-body">
             <div class="car-title">
@@ -267,7 +318,7 @@
             </div>
           </div>
           <div class="car-cta">
-            <a class="btn-outline" href="#booking">İletişime Geçin</a>
+            <a class="btn-outline" href="iletisim.html">İletişime Geçin</a>
             <a class="btn-primary" style="flex:1; display:grid; place-items:center" href="#booking">Stokta mevcut</a>
           </div>
         </article>
@@ -275,7 +326,7 @@
         <!-- Card 4 -->
         <article class="car-card" aria-label="Lüks – BMW 5 Serisi">
           <div class="car-media">
-            <img alt="BMW 5 Serisi" src="resimler/bmw-1596080_640.png">
+            <img alt="BMW 5 Serisi" src="resimler/bmw.jpg">
           </div>
           <div class="car-body">
             <div class="car-title">
@@ -287,7 +338,7 @@
             </div>
           </div>
           <div class="car-cta">
-            <a class="btn-outline" href="#booking">İletişime Geçin</a>
+            <a class="btn-outline" href="iletisim.html">İletişime Geçin</a>
             <a class="btn-primary" style="flex:1; display:grid; place-items:center" href="#booking">Stokta mevcut</a>
           </div>
         </article>
@@ -295,7 +346,7 @@
         <!-- Card 5 -->
         <article class="car-card" aria-label="7 Koltuk – Peugeot 5008">
           <div class="car-media">
-            <img alt="Peugeot 5008" src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=1600&auto=format&fit=crop">
+            <img alt="Peugeot 5008" src="resimler/peugeot.jpg">
           </div>
           <div class="car-body">
             <div class="car-title">
@@ -307,7 +358,7 @@
             </div>
           </div>
           <div class="car-cta">
-            <a class="btn-outline" href="#booking">İletişime Geçin</a>
+            <a class="btn-outline" href="iletisim.html">İletişime Geçin</a>
             <a class="btn-primary" style="flex:1; display:grid; place-items:center" href="#booking">Stokta mevcut</a>
           </div>
         </article>
@@ -315,7 +366,7 @@
         <!-- Card 6 -->
         <article class="car-card" aria-label="Elektrikli – Tesla Model 3">
           <div class="car-media">
-            <img alt="Tesla Model 3" src="resimler/honda-1596081_640.png">
+            <img alt="Tesla Model 3" src="resimler/tesla.jpg">
           </div>
           <div class="car-body">
             <div class="car-title">
@@ -327,19 +378,26 @@
             </div>
           </div>
           <div class="car-cta">
-            <a class="btn-outline" href="#booking">İletişime Geçin</a>
+            <a class="btn-outline" href="iletisim.html">İletişime Geçin</a>
             <a class="btn-primary" style="flex:1; display:grid; place-items:center" href="#booking">Stokta mevcut</a>
           </div>
         </article>
       </div>
     </div>
+     <div style="text-align:center; margin-top:30px;">
+      <a href="iletisim.html" class="btn-primary" style="padding:14px 24px; font-size:16px; display:inline-block;">
+        Daha fazlası için iletişime geçin
+      </a>
+    </div>
+  </div>
   </section>
+  
 
   <!-- BENEFITS -->
   <section id="benefits">
     <div class="container">
       <div class="section-title">
-        <h2>Neden Gold Rent a Car?</h2>
+        <h2>Neden Hal-Der Araç Kiralama?</h2>
         <p>Hız, şeffaflık ve destek — hepsi tek yerde.</p>
       </div>
       <div class="benefits">
@@ -378,12 +436,12 @@
         <div class="review">
           <div class="stars">★★★★★</div>
           <p style="margin:8px 0 0">“Depozitosuz seçenek harika! Gönül rahatlığıyla aldım.”</p>
-          <p class="small" style="margin-top:8px">— Kadir K., Yüksekova</p>
+          <p class="small" style="margin-top:8px">— Kadir K., Van</p>
         </div>
         <div class="review">
           <div class="stars">★★★★☆</div>
           <p style="margin:8px 0 0">“Uçaktan iner inmez teslim ettiler. Müşteri hizmetleri çok ilgili.”</p>
-          <p class="small" style="margin-top:8px">— Elif D., Yüksekova</p>
+          <p class="small" style="margin-top:8px">— Elif D., Van</p>
         </div>
       </div>
     </div>
@@ -406,8 +464,8 @@
           <p>Hayır! Ehliyet yaşını dolduran herkese aynı şeffaflıkla yaklaşıyoruz.</p>
         </div>
         <div class="qa">
-          <h4>Kilometre sınırı nedir?</h4>
-          <p>Şehir içi kiralamalarda günlük 400 km, üzeri için düşük km başı ücret uygulanır. Sınırsız km paketimiz mevcuttur.</p>
+          <h4>Yakıt indirimi var mı?</h4>
+          <p>X ve Y petrol ofislerinden yakıt aldığınız zaman %15 indirim sağlıyoruz.</p>
         </div>
         <div class="qa">
           <h4>Yakıt politikası nasıl?</h4>
@@ -417,30 +475,39 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="container fgrid">
-      <div>
-        <div class="logo" style="margin-bottom:10px">
-          <span class="logo-badge" aria-hidden="true"></span>
-          Gold Rent a Car
+   <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        
+        <div class="footer-brand">
+          <div class="logo">
+            <img src="resimler/logo.jpg" alt="HalDer Araç Kiralama Logosu" />
+            <span>Hal-Der Araç Kiralama</span>
+          </div>
+          <p class="small">
+            Kolay ve güvenli araç kiralama. Havalimanında teslim, şehir içi teslim, gizli ücret yok.
+          </p>
+          <p class="small">© <span id="y"></span> HalDer Araç Kiralama Teknoloji AŞ.</p>
         </div>
-        <p class="small">Kolay ve güvenli araç kiralama. Havalimanında teslim, şehir içi teslim, gizli ücret yok.</p>
-        <p class="small" style="margin-top:12px">© <span id="y"></span> Gold Rent a Car Teknoloji AŞ.</p>
-      </div>
-      <div>
-        <h4 style="margin:0 0 8px">Şubemiz</h4>
-        <p class="small">Hakkari/Yüksekova yeşildere mahallesi no5</p>
-      </div>
-      <div>
-        <h4 style="margin:0 0 8px">İletişim</h4>
-        <p class="small">+90 850 000 00 00<br/>destek@Goldrentacar.com</p>
+
+        <div class="footer-links">
+          <div>
+            <h4>Şubemiz</h4>
+            <p class="small">Van / Lokman Hekim karşısı</p>
+          </div>
+          <div>
+            <h4>İletişim</h4>
+            <p class="small">📞 +90 536 652 07 12</p>
+          </div>
+        </div>
+
       </div>
     </div>
   </footer>
 
   <script>
-    // Sadece yıl güncellemesi ve demo amaçlı alert engelleme dışında JS yok
+    
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>

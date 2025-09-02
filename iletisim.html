@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>İletişim — HalDer Araç Kiralama</title>
+  <style>
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,ui-sans-serif;
+      background:#0b1020;
+      color:#e8ecf3;
+      line-height:1.6;
+    }
+    .container{max-width:1200px;margin:0 auto;padding:20px}
+    h1{font-size:36px;margin-bottom:24px;text-align:center}
+
+    /* İletişim kutusu */
+    .info{
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      padding:30px;
+      border-radius:20px;
+      margin-bottom:40px;
+      box-shadow:0 8px 20px rgba(0,0,0,.4);
+    }
+    .info-box{display:flex;align-items:center;gap:40px;justify-content:space-between}
+    .info-left{flex:1;font-size:18px}
+    .info-left p{margin:12px 0}
+    .info-left strong{color:#9bffb2}
+    .info-left a{color:#5dd0ff;text-decoration:none;font-weight:600}
+    .info-left a:hover{text-decoration:underline}
+    .info-right img{width:340px;height:auto;border-radius:16px;box-shadow:0 4px 12px rgba(0,0,0,.5)}
+
+    /* Harita */
+      #map-container {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Ekranın yüksekliği kadar */
+    margin: 0;
+    padding: 0;
+  }
+
+  #map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+    /* mobil uyum */
+    @media (max-width: 768px){
+      .info-box{flex-direction:column;align-items:flex-start;text-align:center}
+      .info-right img{width:100%;max-width:420px;margin:0 auto}
+      .info-left{text-align:center}
+    }
+
+    /* HEADER */
+    header{
+      position:sticky; top:0; z-index:40; backdrop-filter:saturate(1.2) blur(8px);
+      background:linear-gradient(rgba(11,16,32,.75), rgba(11,16,32,.55));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{display:flex; align-items:center; gap:20px; padding:14px 0}
+    .logo{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.6px}
+    .logo-badge{width:34px; height:34px; border-radius:10px; display:grid; place-items:center;
+      background:radial-gradient(120% 100% at 0% 0%, #9bffb2, #5dd0ff);}
+    .navlinks{margin-left:auto; display:flex; gap:18px; flex-wrap:wrap}
+    .nav a {color:#fff;text-decoration:none;opacity:.9;transition:opacity .2s ease;}
+    .nav a:hover{opacity:1;color:#fff}
+
+    /* FOOTER */
+    .footer {
+      padding: 50px 0 30px;
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+      border-top: 1px dashed rgba(255,255,255,.08);
+      text-align: center;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-brand .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 10px;
+      justify-content: center;
+    }
+
+    .footer-brand .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .footer-brand p {
+      margin: 6px 0;
+      max-width: 320px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: row;
+      gap: 50px;
+      justify-content: center;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .footer-links h4 {
+      margin-bottom: 6px;
+    }
+
+    /* Mobil uyumluluk */
+    @media (max-width: 768px) {
+      .footer-links {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+    
+    .fgrid{
+      display:grid; 
+      grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+      gap:24px;
+      justify-items:center; /* GRID ORTALAMA */
+      align-items:start;
+      max-width:1000px;
+      margin:0 auto;
+    }
+    .fgrid h4{margin:0 0 10px}
+    .small{color:#aab3c2;font-size:14px}
+  </style>
+</head>
+<body>
+  <header>
+  <div class="container nav">
+    <a class="logo" href="index.html">
+      <span class="logo-badge" aria-hidden="true">
+        <img src="resimler/logo.jpg" alt="HalDer Araç Kiralama Logosu" style="width:34px; height:34px; border-radius:10px; object-fit:cover;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 13h4l3 6h4l3-10h4" stroke="#051319" stroke-width="2"/>
+          <circle cx="8" cy="19" r="2.2" fill="#051319"/>
+          <circle cx="17" cy="19" r="2.2" fill="#051319"/>
+        </svg>
+      </span>
+      HalDer Araç Kiralama
+    </a>
+    <nav class="navlinks" aria-label="Ana gezinme">
+      <a href="index.html">Anasayfa</a>
+    </nav>
+  </div>
+</header>
+
+
+  <section class="container">
+    <h1>İletişim</h1>
+    <div class="info info-box">
+      <div class="info-left">
+        <p><strong>Telefon:</strong> <a href="https://wa.me/905016040712" target="_blank">WhatsApp</a></p>
+        <p><strong>E-posta:</strong> destek@halderarackiralama.com</p>
+        <p><strong>Sahibinden:</strong> <a href="https://halderauto.sahibinden.com/" target="_blank">İlanlarımızı Görüntüle</a></p>
+        <p><strong>Adres:</strong> Van / Lokman Hekim Karşısı</p>
+      </div>
+      <div class="info-right">
+        <img src="resimler/halder.jpg" alt="İletişim">
+      </div>
+    </div>
+
+   <div id="map-container">
+   
+  <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d1561.3069964371161!2d43.389835790018374!3d38.49654810153268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1slokman%20hekim!5e0!3m2!1str!2str!4v1756818070791!5m2!1str!2str"
+    width="100%" 
+    height="100%" 
+    style="border:0;" 
+    allowfullscreen 
+    loading="lazy" 
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        
+        <div class="footer-brand">
+          <div class="logo">
+            <img src="resimler/logo.jpg" alt="HalDer Araç Kiralama Logosu" />
+            <span>Hal-Der Araç Kiralama</span>
+          </div>
+          <p class="small">
+            Kolay ve güvenli araç kiralama. Havalimanında teslim, şehir içi teslim, gizli ücret yok.
+          </p>
+          <p class="small">© <span id="y"></span> HalDer Araç Kiralama Teknoloji AŞ.</p>
+        </div>
+
+        <div class="footer-links">
+          <div>
+            <h4>Şubemiz</h4>
+            <p class="small">Van / Lokman Hekim karşısı</p>
+          </div>
+          <div>
+            <h4>İletişim</h4>
+            <p class="small">📞 +90 536 652 07 12</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
